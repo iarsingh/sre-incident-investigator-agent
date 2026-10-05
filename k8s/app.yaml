@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sre-incident-investigator-agent
+  labels:
+    app: sre-incident-investigator-agent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sre-incident-investigator-agent
+  template:
+    metadata:
+      labels:
+        app: sre-incident-investigator-agent
+    spec:
+      containers:
+        - name: api
+          image: sre-incident-investigator-agent:local
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /v1/readyz
+              port: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sre-incident-investigator-agent
+spec:
+  selector:
+    app: sre-incident-investigator-agent
+  ports:
+    - port: 80
+      targetPort: 8080
