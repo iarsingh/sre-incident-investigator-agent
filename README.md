@@ -1,5 +1,12 @@
 # AI SRE Incident Investigator
 
+## Overview
+
+An agent lab for incident root cause analysis. Given an alert, it gathers evidence from logs, metrics, git history and Kubernetes state, checks previous incidents, and returns an RCA through `POST /agent/run`. Actions that need a human, such as paging someone or rebooting, are refused, and cluster apply stays false until a person approves. A `/v1` ops API adds workspaces, tenant isolation, job approval and audit records.
+
+- **Built with:** Python, pytest, GitHub Actions
+- **Scope:** Laptop proof with tests; no hosted model, and production apply is refused.
+
 <!-- project-guide:start -->
 ## Project guide
 
